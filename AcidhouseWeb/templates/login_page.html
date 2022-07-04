@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    AcidHouse
+{% endblock %}
+
+{% block bodycontent %}
+
+    <style>
+        * {
+            text-align: center;
+            
+        }
+        body {
+            background-image: url('https://i.pinimg.com/originals/06/a8/5b/06a85b703ccc50fcc2214bac56214f48.gif');
+            background-size: cover;
+        }
+    </style>
+    
+    <h1 class="center">ACIDHOUSE</h1>
+    <p class="center">Log In</p>
+
+    <form method="POST" action="{{ url_for('login_page') }}" autocomplete="off">
+
+        {{ form.csrf_token }}
+        {{ form.username }}<br>
+        {{ form.password }}<br>
+        {{ form.enter }}
+        {{ form.register }}
+
+    </form>
+
+    <p style="font-size: medium; color:rgb(189, 0, 0)">{{ invalid }}</p>
+
+
+{% endblock %}

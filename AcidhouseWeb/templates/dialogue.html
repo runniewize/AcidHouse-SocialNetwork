@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AcidHouse</title>
+
+
+    <style>
+        body {
+          background-image: url({{ background_data }});
+          background-size: cover;   
+          position: absolute;       
+        }
+
+        .square {
+    width: 60%;
+    height: 101%;
+    margin: 19.5%;
+    margin-top: -1%;
+    background: #2a2a2aa1;
+    position: fixed;
+    overflow: auto;
+
+    }
+
+    .square_second {
+    width: 101%;
+    height: 101%;
+    margin: -1%;
+    margin-top: -1%;
+    background: #1c1b1b5e;
+    position: fixed;
+
+    }
+
+    .square_inside{
+
+        width: 58%;
+        height: 90%;
+        margin-left: 1%;
+        background: #bfbfbf00;
+        position: fixed;
+
+
+
+    }
+
+    .square_dialogue{
+
+    width: 58%;
+    height: 79%;
+    margin-left: -13.5%;
+    margin-top: -1%;
+    background: #ff000000;
+    position: fixed;
+
+
+    }
+
+    .message{
+
+    width: 65%;
+    border-radius: 11%;
+    height: auto;
+    margin-left: 0;
+    background: rgba(0, 255, 255, 0.592);
+    word-wrap: break-word;
+    font-size: 30px
+
+    }
+
+    .my_message{
+
+    width: 65%;
+    border-radius: 11%;
+    height: auto;
+    margin-left: 35%;
+    background: rgba(74, 169, 195, 0.633);
+    word-wrap: break-word;
+    color: white;
+    font-size: 30px
+
+
+    }
+
+    .enemy_widget{
+
+    width: 30%;
+    height: 85px;
+    margin-left: 13.5%;
+    background: #333333d4;
+    position: fixed;
+
+
+
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .round_avatar_message {
+    border-radius: 100px; /* Радиус скругления */
+    border: 3px solid rgb(11, 203, 206); /* Параметры рамки */
+    box-shadow: 0 0 7px #666; /* Параметры тени */
+   }
+
+   ::-webkit-scrollbar {
+    width: 10px;
+
+}
+
+input[type=submit] {
+    color:rgb(6, 111, 107);
+    width: 100px;
+    }
+input {
+
+    background: rgba(130, 130, 130, 0.256);
+    width: 400px;
+    height: 50px;
+    font-size: 30px;
+    color: white;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #434343; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(6, 111, 107);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(25, 119, 115); 
+}
+
+    </style>
+
+
+</head>
+<body>
+
+<div class="square_second"></div>
+    <div class="square">
+        <div class="square_inside">
+            <div id="maks_test" class="enemy_widget" style="text-align:center">
+
+                <a href="/user/{{ enemy['registered_username'] }}">
+                <img class="round_avatar_message" src="{{ enemy['profile_image'] }}" width="70px" height="70px" style="border-radius: 100px;margin-top: 2%;margin-left: -85%;">
+                <h1 style="color: rgb(0, 255, 251);font-size: 40px;text-align:center;margin-top: -15%;">
+                    
+                    {% if enemy['registered_username'].__len__() >= 18 %}
+                    {{ enemy['registered_username'][0] + enemy['registered_username'][1] + enemy['registered_username'][2] + enemy['registered_username'][3] + enemy['registered_username'][4] + enemy['registered_username'][5] + enemy['registered_username'][6] + enemy['registered_username'][7] + enemy['registered_username'][8] + enemy['registered_username'][9] + enemy['registered_username'][10] + enemy['registered_username'][11] + enemy['registered_username'][12] + enemy['registered_username'][13] + enemy['registered_username'][14] + enemy['registered_username'][15] + enemy['registered_username'][16] + enemy['registered_username'][17] + enemy['registered_username'][18] }}
+                    
+                    {% else %}
+                    {{ enemy['registered_username'] }}
+
+                    {% endif %}
+                
+                
+                </h1>
+                 </a>
+                <div id="dialogue" class="square_dialogue" style="overflow: auto;font-size:20px">
+                    
+                    <script>
+
+                    window.onload = messagesTimer(true);
+
+
+                    function delay(n)
+                    {
+                    return new Promise(function(resolve){
+                        setTimeout(resolve,n*1000);
+                    });
+                    }
+
+
+
+                    function checkForEnter(even)
+                    {
+                        if (even.keyCode == 13) 
+                        { 
+                            postMSGDB()
+                        }
+                    }
+
+
+
+
+
+
+                    function getMSGDB()
+                    {
+                        // document.getElementById('dialogue').scrollTo(0, 1000000000)
+
+                        httpobj = new XMLHttpRequest();
+                        httpobj.open('get', 'dialogue/msg_db_info', true);
+                        httpobj.send();
+                        httpobj.onreadystatechange = function() 
+                        {
+                        if (httpobj.readyState == 4 && httpobj.status == 200)
+                        {
+                        var response = httpobj.response;
+                        showDialogueMessages(response)
+                        }
+                        }
+                    }
+
+                    
+
+                    async function messagesTimer(first_time)
+                    {
+
+
+                        getMSGDB();
+
+                        await delay(1);
+
+                        if (first_time == true) 
+                        {
+                            document.getElementById("dialogue").scrollTo(0, 100000);
+
+                            // console.log('must go down')
+
+                        }
+
+
+                        messagesTimer(false);
+
+                    }
+
+
+
+
+                    function showDialogueMessages(db)
+                    {
+                        var msg_db = JSON.parse(db)
+
+
+                        var messages = []
+
+                        // console.log(msg_db)
+
+
+
+                        var content = ""
+
+
+                        for(let i = 0; i < msg_db.main.length; i++)
+                        {
+
+                            if (msg_db.main[i].msg_reciever == 'not_me') 
+                            {
+                                content = content + '<div class="my_message" style="margin-top: 2%;">' + msg_db.main[i].content + '</div>'
+
+                            }
+
+                            else 
+                            {
+
+                                content = content + '<div class="message" style="margin-top: 2%;">' + msg_db.main[i].content + '</div>'
+                            }
+                        }
+
+                        document.getElementById("dialogue").innerHTML = content
+                    }
+
+                    function checkForEnter(even)
+                    {
+                        if (even.keyCode == 13) 
+                        { 
+                            postMSGDB()
+                        }
+                    }
+
+                    function postMSGDB()
+                    {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("post", '/msg_db_info_post', true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+
+                        var time = Math.round(window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now());
+
+                        js_msg = {
+                            message_content: document.getElementById("input_field").value,
+                            sender: "{{ user['username'] }}",
+                            reciever: "{{ enemy['registered_username'] }}",
+                            send_time: time
+                        }
+
+                        document.getElementById("input_field").value = "";
+
+
+                        console.log(js_msg)
+                        xhr.send(JSON.stringify(js_msg));
+
+                        console.log("Sended at: " + time)
+
+                    }
+
+                    </script>
+                    
+
+ 
+                    
+
+
+                    
+
+                       
+                </div>
+
+                <input id="input_field" style="position: fixed; margin-left: -12.5%;margin-top:36.5%;border-color:aqua" type="text" id="txt" onkeydown="checkForEnter(event)">
+
+
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>

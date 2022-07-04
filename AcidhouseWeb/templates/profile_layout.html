@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+  <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="ACIDHOUSE​, Треды​">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/nicepage.css" media="screen">
+    <link rel="stylesheet" href="/static/css/Главная.css" media="screen">
+    <style>
+
+      
+    .u-header {
+      background-image: url({% block background %}{% endblock %});
+    }
+    .u-header .u-image-1 
+    {
+    width: 204px;
+    height: 204px;
+    background-image: url("{% block user_image %}{% endblock %}");
+    background-position: 50% 50%;
+    margin: -216px auto 60px;
+    }
+    .bottom_widget_panel {
+    width: 100%;
+    height: 60px;
+    background: #313131c5;
+    position: fixed;
+    bottom: 0px;
+    left: 0px
+    }
+    .round_avatar_bottom_widget {
+    border-radius: 100px; /* Радиус скругления */
+    border: 2px solid rgb(11, 203, 206); /* Параметры рамки */
+    box-shadow: 0 0 7px #666; /* Параметры тени */
+   }
+
+   ::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #434343; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(6, 111, 107);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(25, 119, 115); 
+}
+
+   .post_box 
+   {
+    position:absolute;
+    overflow: auto;
+    margin-top: 65%;
+    margin-left: -150%;
+    background-color: rgba(0, 0, 0, 0.305);
+    width: 430%;
+    height: 300px;
+   }
+
+   .add_post 
+   {
+    cursor: pointer;
+    background-color:rgba(91, 91, 91, 0.64);
+    color: cyan;
+    font-size: 50px;
+    margin-left: -5%;
+    text-align: center;
+    font-weight: 10000;
+   }
+
+   .post_bg 
+   {
+    color: white;
+    border-style: outset;
+    border-color: rgba(0, 255, 255, 0.34);
+    font-size: 20px;
+    word-break: break-all;
+    margin-top: 2%;
+    background-color: rgba(91, 91, 91, 0.151);
+    width: 100%;
+    height: auto;
+   }
+
+   .popup_box 
+   {
+    z-index: 999998;
+    margin-left: 15%;
+    margin-top: 5%;
+    position:fixed;
+    background-color: rgba(57, 57, 57, 0.955);
+    width: 70%;
+    height: 70%;
+    visibility:hidden;
+   }
+
+   .popup_input 
+   {
+    
+    background-color: rgba(92, 92, 92, 0.288);
+    margin-left: 5%;
+    margin-top: 2%;
+    width: 90%;
+    height: 70%;
+    border-style: solid;
+    border-color: cyan;
+    color: white;
+    font-size: 30px;
+    text-align: left;
+   }
+
+    </style>
+    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+    <meta name="generator" content="Nicepage 4.8.2, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": ""
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Главная">
+    <meta property="og:type" content="website">
+  </head>
+  <body class="u-body u-xl-mode">
+
+    <div id="addPost" class="popup_box">
+      <textarea id="post_text" class="popup_input"></textarea>
+
+      <input id="post_img_link" placeholder="http://      add image" style="margin-left:5%;width: 25%;background-color: rgba(92, 92, 92, 0.288); border-style: solid; border-color: cyan; color: white"></input>
+      <button onclick="submit_post()"  id="submit_post_button"  style="color: cyan;font-size:50px;margin-top: 1%;margin-left: 11%;background-color:#595959;border-color:#8e8e8e00;border-radius: 10000px;cursor: pointer;">SUBMIT</button>
+      <button onclick="close_add_post()" style="color: cyan;font-size:60px;margin-top: -10%;margin-left: 97%;background-color:#595959;border-color:#8e8e8e00;border-radius: 10000px;cursor: pointer;">X
+      </button>
+
+    </div>
+
+      <header style="height: 720px" class="u-clearfix u-header u-image u-header" id="sec-3517" data-image-width="4572" data-image-height="3328"><div class="u-expanded-width u-grey-90 u-opacity u-opacity-95 u-shape u-shape-rectangle u-shape-1"></div><div class="u-container-style u-expanded-width u-gradient u-group u-shape-rectangle u-group-1">
+        <div class="u-container-layout u-container-layout-1">
+          <h1 class="u-align-center u-custom-font u-font-raleway u-text u-text-custom-color-1 u-text-1">
+            <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-active-palette-4-light-1 u-text-hover-palette-1-light-1 u-text-palette-4-light-1 u-btn-1" data-page-id="1984205603" target="_blank">{% block username %}{% endblock %}</a>
+          </h1>
+        </div>
+      </div><div class="u-grey-80 u-opacity u-opacity-75 u-shape u-shape-circle u-shape-2">
+        
+
+
+        {% block change_photo %}
+
+        {% endblock %}
+
+        <div class="post_box">
+
+          <script>
+
+            function close_add_post()
+            {
+              var popup = document.getElementById("addPost");
+              popup.style.visibility = "hidden";
+            }
+
+            function add_post()
+            {
+                var popup = document.getElementById("addPost");
+                popup.style.visibility = "visible";
+            }
+
+            function submit_post()
+            {
+              var post_text = document.getElementById("post_text").value;
+              var post_img_link = document.getElementById("post_img_link").value;
+              document.getElementById("post_text").value = "";
+              document.getElementById("post_img_link").value = "";
+              close_add_post()
+
+              var xhr = new XMLHttpRequest();
+              xhr.open("post", '/post_new', true);
+              xhr.setRequestHeader('Content-Type', 'application/json');
+
+              var time = Math.round(window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now());
+
+              post_content = {
+                username: "{{ user['username'] }}",
+                post_text: post_text,
+                post_img_link: post_img_link,
+                time: time
+              }
+
+              console.log(post_content)
+              xhr.send(JSON.stringify(post_content));
+
+              console.log("Sended at: " + time)
+
+
+            }
+        
+        </script>
+
+          {% block post_info %}
+
+
+
+          {% endblock %}
+        </div>
+
+        
+    
+
+      </div><div class="u-image u-image-circle u-image-1" alt="" data-image-width="520" data-image-height="559"></div></header> 
+
+      <div class="bottom_widget_panel" style="z-index: 100000;">
+        <div style="display:inline-block;padding-left: 1%;margin-top: 10px;" ><b><a style="font-size: 30px;color: aqua;" href="/me"><img class="round_avatar_bottom_widget" src="{% block user_image_double %}{% endblock %}" width="40" height="40">{% block username_double %} {% endblock %}</a></b></div>         
+        <div style="display:inline-block;padding-left: 3%;padding-top: 7px;" ><b><a style="font-size: 30px;color: aqua;" href="/messages"><img src="/static/css/img/message.png" width="30" height="30">  Messages</p></b></div>
+        <div style="display:inline-block;padding-left: 3%;padding-top: 7px;" ><b><a style="font-size: 30px;color: aqua;" href="/community"><img src="/static/css/img/people.png" width="30" height="30">  Community</p></b></div>
+
+
+        <div style="display:inline-block;padding-left: 45%;padding-top: 7px;" ><b><a style="font-size: 30px;color: aqua;" href="/login"><img src="/static/css/img/exit.png" width="30" height="30">  Leave</p></b></div>
+
+      
+      </div>    
+    
+    
+    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-5458" style="margin-top: 0%; height: 60px;"><div class="u-align-left u-clearfix u-sheet u-sheet-1"></div></footer>
+    <section class="u-backlink u-clearfix u-grey-80">
+    </section>
+  </body>
+</html>

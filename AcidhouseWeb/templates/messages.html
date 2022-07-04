@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+
+
+    <style>
+        body {
+          background-image: url({{ background_data }});
+          background-size: cover;   
+          min-height: 720px;
+          
+       
+        }
+
+        .square {
+    width: 60%;
+    height: 101%;
+    margin: 19.5%;
+    margin-top: -1%;
+    background: #2a2a2aa1;
+    position: fixed;
+    }
+
+    .square_second {
+    width: 101%;
+    height: 101%;
+    margin: -1%;
+    margin-top: -1%;
+    background: #1c1b1b5e;
+    position: fixed;
+    }
+
+    .message 
+    {
+
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 3%;
+        height: 101px;
+        background: #1c1b1bd5;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .round_avatar_message {
+    border-radius: 100px; /* Радиус скругления */
+    border: 3px solid rgb(11, 203, 206); /* Параметры рамки */
+    box-shadow: 0 0 7px #666; /* Параметры тени */
+   }
+
+   ::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #434343; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(6, 111, 107);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(25, 119, 115); 
+}
+
+    </style>
+
+</head>
+<body>
+
+<div class="square_second"></div>
+    <div class="square" style="overflow: auto;">
+        <script>
+            window.onload = getMSGDB;
+
+
+            function delay(n)
+            {
+            return new Promise(function(resolve){
+                setTimeout(resolve,n*1000);
+            });
+            }
+
+            function getMSGDB()
+            {
+                httpobj = new XMLHttpRequest();
+                httpobj.open('get', '/get_msg_db', true);
+                httpobj.send();
+                httpobj.onreadystatechange = function() 
+                {
+                if (httpobj.readyState == 4 && httpobj.status == 200)
+                {
+                  var response = httpobj.response;
+                  showMessages(response)
+                }
+                }
+            }
+
+
+            async function showMessages(db)
+            {
+                var msg_db = JSON.parse(db)
+
+
+                var messages = []
+
+                console.log(msg_db)
+
+                
+                for (let i = 0; i < msg_db.main.length; i++)
+                {
+                    if (msg_db.main[i].reciever == "not_me")
+                    {
+                        messages.push({
+                        reciever:   "not_me",
+                        enemy_avatar: msg_db.main[i].user_avatar,
+                        enemy_username: msg_db.main[i].username,
+                        content: msg_db.main[i].msg_content,
+                        dialogue_url: msg_db.main[i].dialogue_url
+
+                        });
+
+                    }
+                    else
+                    {
+                        messages.push({
+                        reciever:   "me",
+                        enemy_avatar: msg_db.main[i].user_avatar,
+                        enemy_username: msg_db.main[i].username,
+                        content: msg_db.main[i].msg_content,
+                        dialogue_url: msg_db.main[i].dialogue_url
+
+                        });
+                    }
+                }
+
+
+
+                var content = ""
+
+                for(let i = 0; i < messages.length; i++)
+                {
+                    if (messages[i].reciever == 'not_me') 
+                    {
+                        content = content + '<div class="message"><a href=' + messages[i].dialogue_url + '><img class="round_avatar_message" src="' + messages[i].enemy_avatar + '" width="60px" height="60px" style="border-radius: 100px;margin-top: 2%;margin-left: 2%;"><h1 style="color: rgb(0, 255, 251);font-size: 30px;text-align:left;margin-top: -9%;margin-left: 11%;">' + messages[i].enemy_username + '</h1><p style="color: rgb(232, 232, 232);font-size: 30px;text-align:left;margin-top: -2%;margin-left: 11%;text-overflow: clip;">' + messages[i].content + '</p></a></div>'
+
+                    }
+
+                    else 
+                    {
+
+                        content = content + '<div class="message"><a href=' + messages[i].dialogue_url + '><img class="round_avatar_message" src="' + messages[i].enemy_avatar + '" width="60px" height="60px" style="border-radius: 100px;margin-top: 2%;margin-left: 2%;"><h1 style="color: rgb(0, 255, 251);font-size: 30px;text-align:left;margin-top: -9%;margin-left: 11%;">' + messages[i].enemy_username + '</h1><p style="color: rgb(18, 147, 186);font-size: 30px;text-align:left;margin-top: -2%;margin-left: 11%;text-overflow: clip;">' + messages[i].content + '</p></a></div>'
+                    }
+                }
+
+                document.getElementById("msgs").innerHTML = content
+
+
+
+                await delay(5);
+
+                getMSGDB()
+
+            }
+
+
+        </script>
+
+
+        <div id="msgs">
+            
+        
+        </div>
+
+
+
+
+
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>

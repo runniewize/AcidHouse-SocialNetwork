@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community</title>
+
+
+    <style>
+        body {
+          background-image: url({{ background_data }});
+          background-size: cover;   
+          position: absolute;       
+        }
+
+        .main_square {
+            width: 80%;
+            height: 101%;
+            margin: 9.75%;
+            margin-top: -1%;
+            background: #2a2a2aa1;
+            position: fixed;
+            overflow: auto;
+        }
+
+        .find_square {
+            width: 70%;
+            height: 17%;
+            margin-left: 15%;
+            margin-top: 1%;
+            background: #2a2a2ac3;
+            overflow: auto; 
+        }
+
+        .input {
+            width: 90%;
+            height: 60%;
+            margin-left: 5%;
+            margin-top: 2%;
+            font-size: 50px;
+            background-color: #2a2a2ac3;
+            border-color: aqua;
+            color: aqua
+        }
+
+        .square_human{
+
+            width: 45%;
+            height: 100px;
+            margin-left: 26.5%;
+            margin-top: 2%;
+            background: rgba(9, 9, 9, 0.241);
+
+
+
+        }   
+
+        .round_avatar_message {
+            border-radius: 100px; /* Радиус скругления */
+            border: 3px solid rgb(11, 203, 206); /* Параметры рамки */
+            box-shadow: 0 0 7px #666; /* Параметры тени */
+        }
+
+        ::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #434343; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(6, 111, 107);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(25, 119, 115); 
+}
+
+a:hover {
+  color: rgba(255, 255, 255, 0);
+}
+
+a:active {
+    color: rgba(255, 255, 255, 0);
+}
+
+a:visited {
+    color: rgba(255, 255, 255, 0);
+}
+
+a:link {
+    color: rgba(255, 255, 255, 0);
+
+}
+    </style>
+
+</head>
+<body>
+    <div class="main_square">
+        <div class="find_square">
+            <input class="input" id="find_input" oninput='userfind()'>
+            </input>
+        </div>
+
+        <script>
+            window.onload = userfind;
+            function userfind()
+            {
+                var name = document.getElementById("find_input").value
+
+                var content = ""
+
+                var users = []
+                var avatars = []
+
+                {% for user in all_users %}
+
+                users.push('{{user.registered_username}}')
+
+                avatars.push('{{user.profile_image}}')
+
+
+                {% endfor %}
+
+                if (name != "") 
+                {
+
+
+                    // console.log(avatars)
+                    // console.log(users)
+
+                    for (let i = 0; i < users.length; i++) 
+                    {
+                        var orig_name = users[i]
+                        users[i] = users[i].toLowerCase();
+                        name = name.toLowerCase();
+                        if (users[i].includes(name)) 
+                        {
+                            content = content +  '<div style="margin-top: 2%" id="people"><div class="square_human"><a href="user/' + orig_name + '"><img class = "round_avatar_message" src=' + avatars[i] + ' width="70px" height="70px" style="border-radius: 100px;margin-top: 2%;margin-left: 2%;"><h1 style="color: rgb(0, 255, 251);font-size: 40px;text-align:left;margin-top: -12%;margin-left: 15%;padding-left: 10px;background-color: rgba(0, 0, 0, 0);">' + orig_name + '</h1></a></div></div>'
+                            // console.log(users[i])
+                        }   
+
+                        document.getElementById("people").innerHTML = content
+
+                    }
+                    // console.log(users)
+                }
+
+                else 
+                {
+                    for (let i = 0; i < users.length; i++) 
+                    {
+                        // console.log(i)
+                        content = content +  '<div style="margin-top: 2%" id="people"><div class="square_human"><a href="user/' + users[i] + '"><img class = "round_avatar_message" src=' + avatars[i] + ' width="70px" height="70px" style="border-radius: 100px;margin-top: 2%;margin-left: 2%;"><h1 style="color: rgb(0, 255, 251);font-size: 40px;text-align:left;margin-top: -12%;margin-left: 15%;padding-left: 10px;background-color: rgba(0, 0, 0, 0);">' + users[i] + '</h1></a></div></div>'
+                
+                    }    
+
+                    document.getElementById("people").innerHTML = content
+
+                    
+                }
+
+
+            }
+
+        </script>
+
+        <div style="margin-top: 2%" id="people">
+
+
+
+        </div>
+
+    </div>
+
+</body>
+</html>

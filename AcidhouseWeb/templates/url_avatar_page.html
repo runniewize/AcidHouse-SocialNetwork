@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block bodycontent %}
+
+    <style>
+    body {
+        background-image: url({{ background_data }});
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+    button {
+    height: 40px;
+    width: 40px;
+    margin-bottom: 15px;
+    border: 1px solid cyan;
+    clear: both;
+}
+    </style>
+    <style>
+        * {
+            text-align: center;
+        }
+    </style>
+    
+    <h1 id="settings-color" class="center" style="background-color: rgba(43, 58, 65, 0.374);">SETTINGS</h1>
+
+    <form method="POST" action="{{ url_for('settings') }}" style="background-color: rgba(31, 55, 62, 0.114);">
+
+        <p class="center" style="font-size: 40px">Avatar</p>
+        {{ form.csrf_token }}
+        {{ form.avatar_link }}<br>
+        {{ form.submit_avatar }}
+
+
+        <p class="center" style="font-size: 40px">Background Image</p><br>
+        {{ form.background_link }}<br>
+
+        {{ form.submit_avatar }}
+
+
+    </form>
+    <p style="font-size: medium; color:rgb(189, 0, 0)">{{ invalid }}</p>
+
+
+
+
+
+{% endblock %}

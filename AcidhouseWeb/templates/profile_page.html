@@ -1,0 +1,71 @@
+{% extends 'profile_layout.html' %}
+
+{% block title %}
+    {{ user['username'] }}
+{% endblock %}
+
+
+
+
+{% block username %}
+    {{ user['username'] }}
+{% endblock %}
+
+{% block background %}
+    {{ background_data }}
+{% endblock %}
+
+{%block change_photo %}
+    {% if ismypage == True %}
+
+    <p style="margin-left: 80%;border-color: rgb(255, 0, 0);border-radius: 10px;"><a href="/settings"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVTHjjD0HzbR5G8StkSk-bT1FCyhYNk__Lqg&usqp=CAU" width="60" 
+        height="60" alt="" style="border-radius: 100px;"></a></p>
+
+    {% else %}
+
+    <p style="margin-left: 80%;"><a href="{{ user['username'] }}/dialogue"><img src="https://i.pinimg.com/474x/75/ff/4c/75ff4cde6e7abd9a4a836d5eacddfe3e.jpg" width="60" 
+        height="60" alt="" style="border-radius: 100px;"></a></p>
+
+    {% endif %}
+
+{% endblock %}
+
+
+
+
+{% block user_image %}{{avatar}}{% endblock %}
+
+{% block user_image_double %} {{bottom_avatar}} {% endblock %}
+
+
+
+
+
+
+{% block post_info %}
+    {% if ismypage == True %}
+    <div class="add_post" onclick="add_post()">ADD POST</div>
+
+    {% endif %}
+
+    {% for post in posts['main'] %}
+        <div class="post_bg"><p>{{ post['text'] }}</p>
+        {% if post['img'] != "" %}
+            <img src="{{ post['img'] }}">
+        {% endif %}
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+
+
+
+
+{% block username_double %}
+    {% if my_user['username'].__len__() >= 8 %}
+        {{ my_user['username'][0] + my_user['username'][1] + my_user['username'][2] + my_user['username'][3] + my_user['username'][4] + my_user['username'][5] + my_user['username'][6] + my_user['username'][7] }}
+    {% else %}
+        {{ my_user['username'] }}
+    {% endif %}
+{% endblock %}

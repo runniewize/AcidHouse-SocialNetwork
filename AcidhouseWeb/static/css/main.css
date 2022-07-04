@@ -1,0 +1,31 @@
+body
+{
+    background-color: #202220;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color:rgb(98, 202, 211);
+    
+}
+
+input, select {
+    width: 15%;
+    padding: 12px 20px;
+    font-size: large;
+    margin: 8px 0;
+    display: inline-block;
+    border: 3px solid rgb(98, 202, 211);
+    border-radius: 30px;
+    box-sizing: border-box;
+    color:aliceblue;
+    background-color: rgba(44, 50, 51, 0.677);
+    
+  }
+
+.clickready 
+    input:hover{
+    background-color: rgb(98, 202, 211);
+    transform: scale(105%);
+}
+
+.center {
+    text-align: center;
+  }
